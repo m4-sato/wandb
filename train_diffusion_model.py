@@ -51,7 +51,7 @@ ctx_vector = F.one_hot(torch.tensor([0, 0, 0, 0, 0, 0,
                                         4, 4, 4, 4, 4, 4, 4]),
                         5).to(DEVICE).float()
 
-run = wandb.init(project="dlai_sprite_diffusion", job_type="train",config=config)
+run = wandb.init(project="dlai_sprite_diffusion", job_type="train", config=config)
 config = wandb.config
 
 for ep in tqdm(range(config.n_epoch), leave=True, total=config.n_epoch):
@@ -80,8 +80,8 @@ for ep in tqdm(range(config.n_epoch), leave=True, total=config.n_epoch):
         ckpt_file = SAVE_DIR/f"context_model.pth"
         torch.save(nn_model.state_dict(), ckpt_file)
         
-        artifict_name = f"{wandb.run.id}_context_model"
-        at = wandb.Artifact(artifict_name, type="model")
+        artifact_name = f"{wandb.run.id}_context_model"
+        at = wandb.Artifact(artifact_name, type="model")
         at.add_file(ckpt_file)
         wandb.log_artifact(at, aliases=[f"epoch_{ep}"])
         
